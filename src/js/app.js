@@ -1,17 +1,9 @@
 function App() {
   const calculator = {
-    plus: function (a, b) {
-      console.log(a + b);
-    },
-    minus: function (a, b) {
-      console.log(a - b);
-    },
-    multi: function (a, b) {
-      console.log(a * b);
-    },
-    divide: function (a, b) {
-      console.log(a / b);
-    },
+    plus: (a, b) => console.log(a + b),
+    minus: (a, b) => console.log(a - b),
+    multi: (a, b) => console.log(a * b),
+    divide: (a, b) => console.log(a / b),
   };
   calculator.plus(1, 2);
   calculator.minus(3, 5);
