@@ -1,5 +1,5 @@
 function App() {
-  const calcurator = {
+  const calculator = {
     plus: function (a, b) {
       console.log(a + b);
     },
@@ -13,10 +13,10 @@ function App() {
       console.log(a / b);
     },
   };
-  calcurator.plus(1, 2);
-  calcurator.minus(3, 5);
-  calcurator.multi(6, 2);
-  calcurator.divide(20, 3);
+  calculator.plus(1, 2);
+  calculator.minus(3, 5);
+  calculator.multi(6, 2);
+  calculator.divide(20, 3);
 }
 
 App();
