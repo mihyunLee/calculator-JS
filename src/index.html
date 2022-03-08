@@ -7,6 +7,20 @@
     <title>Calculator</title>
   </head>
   <body>
+    <div>
+      <form id="calculate-form">
+        <input id="firstInput" type="text" placeholder="첫 번째 숫자" />
+        <input id="secondInput" type="text" placeholder="두 번째 숫자" />
+        <div id="operation-button">
+          <button id="operation-button-plus">+</button>
+          <button id="operation-button-minus">-</button>
+          <button id="operation-button-multi">x</button>
+          <button id="operation-button-divide">/</button>
+          <button name="submit" id="operation-button-submit">=</button>
+        </div>
+      </form>
+      <div id="operation-result"></div>
+    </div>
     <script src="./js/app.js"></script>
   </body>
 </html>
