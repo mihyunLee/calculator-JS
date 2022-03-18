@@ -2,54 +2,78 @@ const $ = (selector) => document.querySelector(selector);
 
 function App() {
   // Variables
-  let numOne = "",
-    numTwo = "",
+  let oldNum = "",
+    newNum = "",
     ops = "",
     result = "";
 
-  // +, -, x, / 을 클릭했을 때 변수에 값을 세팅한다.
+  // 숫자 버튼을 클릭했을 때 display에 숫자를 보여준다.
   const setValue = (e) => {
-    const isOpsButton = e.target.classList.contains("operation");
-    if (isOpsButton) {
-      if (result) {
-        numOne = "";
-        numTwo = "";
-        ops = "";
-      }
-      if (!numOne) {
-        numOne = Number($("#input-number").value);
-      }
-      ops = e.target.dataset.ops;
-    }
-  };
-
-  // = 을 클릭했을 때 input에 결과값을 출력한다.
-  const displayResult = () => {
-    if (!numTwo && ops) {
-      numTwo = Number($("#input-number").value);
-      switch (ops) {
-        case "plus":
-          result = numOne + numTwo;
-          break;
-        case "minus":
-          result = numOne - numTwo;
-          break;
-        case "multi":
-          result = numOne * numTwo;
-          break;
-        case "divide":
-          result = numOne / numTwo;
-          break;
-      }
-      $("#input-number").value = result;
+    const clickedNum = e.target.dataset.num;
+    if (result) {
+      newNum = clickedNum;
+      result = "";
     } else {
-      result = $("#input-number").value;
+      newNum += clickedNum;
     }
+    $("#calculate-display").innerText = newNum;
   };
 
-  $("#calculate-form").addEventListener("submit", (e) => e.preventDefault());
-  $("#operation-button").addEventListener("click", (e) => setValue(e));
-  $("#equal-button").addEventListener("click", displayResult);
+  // 연산자를 클릭했을 때 newNum의 값을 oldNum에 저장하고 연산자를 변수에 저장한다.
+  const saveValue = (e) => {
+    oldNum = newNum;
+    ops = e.target.dataset.ops;
+    newNum = "";
+  };
+
+  // = 을 클릭했을 때 연산 후에 display에 결과값을 출력한다.
+  const displayResult = () => {
+    oldNum = Number(oldNum);
+    newNum = Number(newNum);
+
+    switch (ops) {
+      case "plus":
+        result = oldNum + newNum;
+        break;
+      case "minus":
+        result = oldNum - newNum;
+        break;
+      case "multi":
+        result = oldNum * newNum;
+        break;
+      case "divide":
+        result = oldNum / newNum;
+        break;
+      default:
+        result = newNum;
+    }
+    $("#calculate-display").innerText = result;
+  };
+
+  // C 버튼을 클릭했을 때 변수를 초기화한다.
+  const clearAll = () => {
+    oldNum = "";
+    newNum = "";
+    $("#calculate-display").innerText = 0;
+  };
+
+  // Event Listener
+  $("#calculator").addEventListener("click", (e) => {
+    if (e.target.dataset.num) {
+      setValue(e);
+      return;
+    }
+    if (e.target.dataset.ops === "equal") {
+      displayResult();
+      return;
+    }
+    if (e.target.dataset.ops) {
+      saveValue(e);
+      return;
+    }
+  });
+
+  $("#clear").addEventListener("click", clearAll);
 }
 
 App();
