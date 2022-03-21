@@ -21,7 +21,7 @@ function App() {
 
   // 연산자를 클릭했을 때 newNum의 값을 oldNum에 저장하고 연산자를 변수에 저장한다.
   const saveValue = (e) => {
-    oldNum = newNum;
+    result ? (oldNum = result) : (oldNum = newNum);
     ops = e.target.dataset.ops;
     newNum = "";
   };
@@ -65,10 +65,16 @@ function App() {
     }
     if (e.target.dataset.ops === "equal") {
       displayResult();
+      console.log(
+        `ops:${ops}, oldNum:${oldNum}, newNum:${newNum}, result:${result}`
+      );
       return;
     }
     if (e.target.dataset.ops) {
       saveValue(e);
+      console.log(
+        `ops:${ops}, oldNum:${oldNum}, newNum:${newNum}, result:${result}`
+      );
       return;
     }
   });
