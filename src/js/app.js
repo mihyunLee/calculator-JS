@@ -19,9 +19,11 @@ function App() {
     $("#calculate-display").innerText = newNum;
   };
 
-  // 연산자를 클릭했을 때 newNum의 값을 oldNum에 저장하고 연산자를 변수에 저장한다.
+  // 연산자를 클릭했을 때 result 값이 있다면 result의 값을 oldNum에,
+  // result가 없고 newNum의 값이 있다면 newNum의 값을 oldNum에 저장하고
+  // 마지막으로 연산자를 변수에 저장한다.
   const saveValue = (e) => {
-    result ? (oldNum = result) : (oldNum = newNum);
+    result ? (oldNum = result) : !newNum || (oldNum = newNum);
     ops = e.target.dataset.ops;
     newNum = "";
   };
@@ -45,15 +47,17 @@ function App() {
         result = oldNum / newNum;
         break;
       default:
-        result = newNum;
+        result || (result = newNum);
     }
     $("#calculate-display").innerText = result;
+    ops = "";
   };
 
   // C 버튼을 클릭했을 때 변수를 초기화한다.
   const clearAll = () => {
     oldNum = "";
     newNum = "";
+    result = "";
     $("#calculate-display").innerText = 0;
   };
 
@@ -65,16 +69,10 @@ function App() {
     }
     if (e.target.dataset.ops === "equal") {
       displayResult();
-      console.log(
-        `ops:${ops}, oldNum:${oldNum}, newNum:${newNum}, result:${result}`
-      );
       return;
     }
     if (e.target.dataset.ops) {
       saveValue(e);
-      console.log(
-        `ops:${ops}, oldNum:${oldNum}, newNum:${newNum}, result:${result}`
-      );
       return;
     }
   });
