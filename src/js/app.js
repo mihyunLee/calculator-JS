@@ -23,7 +23,7 @@ function App() {
   // result가 없고 newNum의 값이 있다면 newNum의 값을 oldNum에 저장하고
   // 마지막으로 연산자를 변수에 저장한다.
   const saveValue = (e) => {
-    result ? (oldNum = result) : !newNum || (oldNum = newNum);
+    oldNum = result || newNum || oldNum;
     ops = e.target.dataset.ops;
     newNum = "";
   };
@@ -47,7 +47,7 @@ function App() {
         result = oldNum / newNum;
         break;
       default:
-        result || (result = newNum);
+        result = result || newNum;
     }
     $("#calculate-display").innerText = result;
     ops = "";
