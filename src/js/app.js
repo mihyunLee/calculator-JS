@@ -7,14 +7,21 @@ function App() {
     ops = "",
     result = "";
 
-  // 숫자 버튼을 클릭했을 때 display에 숫자를 보여준다.
+  const isEmpty = (value) => {
+    if (value === "" || value === null || value === undefined) return true;
+    else return false;
+  };
+
+  // 숫자 버튼을 클릭했을 때 클릭한 숫자는 newNum에 저장하고, display에 숫자를 보여준다.
   const setValue = (e) => {
     const clickedNum = e.target.dataset.num;
-    if (result) {
+    if (isEmpty(result)) {
+      String(newNum).split("")[0] == 0
+        ? (newNum = clickedNum)
+        : (newNum += clickedNum);
+    } else {
       newNum = clickedNum;
       result = "";
-    } else {
-      newNum += clickedNum;
     }
     $("#calculate-display").innerText = newNum;
   };
